@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.OrderShippingMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.OrderShipping" >
+    <constructor >
+      <idArg column="order_shipping_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="receiver_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="receiver_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="receiver_zip" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="receiver_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="delivery" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_shipping_id, order_id, receiver_name, receiver_phone, receiver_zip, receiver_address, 
+    delivery
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_shipping
+    where order_shipping_id = #{orderShippingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_order_shipping
+    where order_shipping_id = #{orderShippingId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.bookstore.model.OrderShipping" >
+    insert into t_order_shipping (order_shipping_id, order_id, receiver_name, 
+      receiver_phone, receiver_zip, receiver_address, 
+      delivery)
+    values (#{orderShippingId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+      #{receiverPhone,jdbcType=VARCHAR}, #{receiverZip,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, 
+      #{delivery,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.bookstore.model.OrderShipping" >
+    insert into t_order_shipping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderShippingId != null" >
+        order_shipping_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone,
+      </if>
+      <if test="receiverZip != null" >
+        receiver_zip,
+      </if>
+      <if test="receiverAddress != null" >
+        receiver_address,
+      </if>
+      <if test="delivery != null" >
+        delivery,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderShippingId != null" >
+        #{orderShippingId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverZip != null" >
+        #{receiverZip,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null" >
+        #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="delivery != null" >
+        #{delivery,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.bookstore.model.OrderShipping" >
+    update t_order_shipping
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null" >
+        receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverZip != null" >
+        receiver_zip = #{receiverZip,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null" >
+        receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="delivery != null" >
+        delivery = #{delivery,jdbcType=BIGINT},
+      </if>
+    </set>
+    where order_shipping_id = #{orderShippingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.bookstore.model.OrderShipping" >
+    update t_order_shipping
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+      receiver_zip = #{receiverZip,jdbcType=VARCHAR},
+      receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+      delivery = #{delivery,jdbcType=BIGINT}
+    where order_shipping_id = #{orderShippingId,jdbcType=BIGINT}
+  </update>
+</mapper>

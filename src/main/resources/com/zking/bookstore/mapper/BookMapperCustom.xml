@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.BookMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.Book" >
+    <constructor >
+      <idArg column="book_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_type" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_author" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_price" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="book_press" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="salesVolume" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updated" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zking.bookstore.model.Book" >
+    <constructor >
+      <idArg column="book_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_type" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_author" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_price" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="book_press" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="salesVolume" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updated" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="book_remark" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs2" type="com.zking.bookstore.model.Book" >
+      <id column="book_id" property="bookId" javaType="java.lang.Long" />
+      <result column="book_name" property="bookName" javaType="java.lang.String" />
+      <result column="book_type" property="bookType" javaType="java.lang.Long" />
+      <result column="book_author" property="bookAuthor" javaType="java.lang.String" />
+      <result column="book_price" property="bookPrice" javaType="java.lang.Float" />
+      <result column="book_press" property="bookPress" javaType="java.lang.String" />
+      <result column="status" property="status" javaType="java.lang.Long" />
+      <result column="sales_volume" property="salesVolume" javaType="java.lang.Long" />
+      <result column="created" property="created" javaType="java.util.Date" />
+      <result column="updated" property="updated" javaType="java.util.Date" />
+      <result column="book_remark" property="bookRemark" javaType="java.lang.String" />
+  </resultMap>
+  <resultMap id="SelectResultMap" type="com.zking.bookstore.model.Book" extends="ResultMapWithBLOBs2">
+       <association property="doc" javaType="com.zking.bookstore.model.Doc">
+            <id column="docId" property="docid" javaType="java.lang.String" />
+            <result column="docName" property="docname" javaType="java.lang.String" />
+            <result column="docType" property="doctype" javaType="java.lang.String" />
+            <result column="docBook" property="docbook" javaType="java.lang.Long" />
+            <result column="docMan" property="docman" javaType="java.lang.Long" />
+            <result column="docDate" property="docdate" javaType="java.util.Date" />
+            <result column="docIsDel" property="docisdel" javaType="java.lang.Boolean" />
+            <result column="docPath" property="docpath" javaType="java.lang.String" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    book_id, book_name, book_type, book_author, book_price, book_press, status, sales_volume, created, 
+    updated
+  </sql>
+  <sql id="Blob_Column_List" >
+    book_remark
+  </sql>
+  <select id="selectAll" resultMap="SelectResultMap" parameterType="book" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,t_doc.*
+    from t_book LEFT OUTER JOIN t_doc ON t_book.book_id = t_doc.docBook
+    <where>
+      <if test="bookName != null" >
+        book_name like CONCAT("%", #{bookName,jdbcType=VARCHAR}, "%")
+      </if>
+      <if test="bookType != null" >
+        and book_type = #{bookType,jdbcType=BIGINT}
+      </if>
+      <if test="bookAuthor != null" >
+        and book_author = #{bookAuthor,jdbcType=VARCHAR}
+      </if>
+      <if test="bookPrice != null" >
+        and book_price = #{bookPrice,jdbcType=REAL}
+      </if>
+      <if test="bookPress != null" >
+        and book_press like CONCAT("%",#{bookPress,jdbcType=VARCHAR}, "%")
+      </if>
+      <if test="status != null" >
+        and status = #{status,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+  <select id="selectAll2" resultMap="ResultMapWithBLOBs2" parameterType="book" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_book 
+    <where>
+      <if test="bookName != null" >
+        book_name like CONCAT("%", #{bookName,jdbcType=VARCHAR}, "%")
+      </if>
+      <if test="bookAuthor != null" >
+        or book_author = #{bookAuthor,jdbcType=VARCHAR}
+      </if>
+      <if test="bookPress != null" >
+        or book_press like CONCAT("%",#{bookPress,jdbcType=VARCHAR}, "%")
+      </if>
+        and status = 2
+    </where>
+  </select>
+</mapper>

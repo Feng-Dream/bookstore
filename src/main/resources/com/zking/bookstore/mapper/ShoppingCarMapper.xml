@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.ShoppingCarMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.ShoppingCar" >
+    <constructor >
+      <idArg column="shoppingCar_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_price" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="book_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updated" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shoppingCar_id, user_id, book_id, book_name, book_price, book_num, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shoppingcar
+    where shoppingCar_id = #{shoppingcarId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_shoppingcar
+    where shoppingCar_id = #{shoppingcarId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.bookstore.model.ShoppingCar" >
+    insert into t_shoppingcar (shoppingCar_id, user_id, book_id, 
+      book_name, book_price, book_num, 
+      created, updated)
+    values (#{shoppingcarId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT}, 
+      #{bookName,jdbcType=VARCHAR}, #{bookPrice,jdbcType=REAL}, #{bookNum,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.bookstore.model.ShoppingCar" >
+    insert into t_shoppingcar
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shoppingcarId != null" >
+        shoppingCar_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookPrice != null" >
+        book_price,
+      </if>
+      <if test="bookNum != null" >
+        book_num,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shoppingcarId != null" >
+        #{shoppingcarId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=REAL},
+      </if>
+      <if test="bookNum != null" >
+        #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.bookstore.model.ShoppingCar" >
+    update t_shoppingcar
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=REAL},
+      </if>
+      <if test="bookNum != null" >
+        book_num = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shoppingCar_id = #{shoppingcarId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.bookstore.model.ShoppingCar" >
+    update t_shoppingcar
+    set user_id = #{userId,jdbcType=BIGINT},
+      book_id = #{bookId,jdbcType=BIGINT},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_price = #{bookPrice,jdbcType=REAL},
+      book_num = #{bookNum,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where shoppingCar_id = #{shoppingcarId,jdbcType=BIGINT}
+  </update>
+</mapper>

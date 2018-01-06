@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.DocMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.Doc" >
+    <constructor >
+      <idArg column="docId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docBook" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docMan" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="docIsDel" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zking.bookstore.model.Doc" >
+    <constructor >
+      <idArg column="docId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docBook" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docMan" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="docIsDel" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="docPath" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    docId, docName, docType, docBook, docMan, docDate, docIsDel
+  </sql>
+  <sql id="Blob_Column_List" >
+    docPath
+  </sql>
+  <delete id="deleteByDocBook" parameterType="java.lang.Long" >
+    delete from t_doc
+    where docBook = #{docbook,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.UserMapperCustom">
+
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />-->
+    <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+    <!--eviction="FIFO"  回收策略为先进先出-->
+    <!--flushInterval="60000" 自动刷新时间60s-->
+    <!--size="512" 最多缓存512个引用对象-->
+    <!--readOnly="true"  只读-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+
+
+    <resultMap id="BaseResultMap" type="com.zking.bookstore.model.User" >
+        <constructor >
+            <idArg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="salt" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        </constructor>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      user_id, username, password, salt, created
+    </sql>
+    <sql id="Salt_Column_List">
+        salt
+    </sql>
+    <sql id="Where_Username">
+        username = TRIM(#{username})
+    </sql>
+    <!--可以通过select标签的useCache属性打开或关闭二级缓存-->
+    <select useCache="false" id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="user">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where
+        <include refid="Where_Username"/>
+        and password = #{password}
+    </select>
+    <select useCache="false" id="selectByUsername2Salt" resultType="string" parameterType="string">
+        select
+        <include refid="Salt_Column_List"/>
+        from t_user
+        <where>
+            <include refid="Where_Username"/>
+        </where>
+    </select>
+    <select useCache="false" id="selectIsUserByUsername" resultType="int" parameterType="string">
+        select count(*)
+        from t_user
+        <where>
+            <include refid="Where_Username"/>
+        </where>
+    </select>
+</mapper>

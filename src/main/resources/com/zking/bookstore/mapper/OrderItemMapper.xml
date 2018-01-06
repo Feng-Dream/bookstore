@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.OrderItem" >
+    <constructor >
+      <idArg column="order_item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="order_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="book_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="book_price" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="book_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="total_fee" jdbcType="REAL" javaType="java.lang.Float" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_item_id, order_id, book_id, book_price, book_num, total_fee
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.bookstore.model.OrderItem" >
+    insert into t_order_item (order_item_id, order_id, book_id, 
+      book_price, book_num, total_fee
+      )
+    values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{bookId,jdbcType=BIGINT}, 
+      #{bookPrice,jdbcType=REAL}, #{bookNum,jdbcType=INTEGER}, #{totalFee,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.bookstore.model.OrderItem" >
+    insert into t_order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookPrice != null" >
+        book_price,
+      </if>
+      <if test="bookNum != null" >
+        book_num,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=REAL},
+      </if>
+      <if test="bookNum != null" >
+        #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.bookstore.model.OrderItem" >
+    update t_order_item
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=REAL},
+      </if>
+      <if test="bookNum != null" >
+        book_num = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=REAL},
+      </if>
+    </set>
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.bookstore.model.OrderItem" >
+    update t_order_item
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      book_id = #{bookId,jdbcType=BIGINT},
+      book_price = #{bookPrice,jdbcType=REAL},
+      book_num = #{bookNum,jdbcType=INTEGER},
+      total_fee = #{totalFee,jdbcType=REAL}
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+</mapper>

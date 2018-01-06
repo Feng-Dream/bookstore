@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!-- 可以扫描controller、service、......
+         这里让扫描controller,指定controller的包
+     -->
+    <context:component-scan base-package="com.zking.bookstore.controller"/>
+
+    <!-- 使用mvc:annotation-driven代替注解处理器映射器和注解处理器适配器 -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置jsp路径的前缀 -->
+        <property name="prefix" value="/WEB-INF/page/"></property>
+        <!-- 配置jsp路径的后缀 -->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--
+    -   全局异常处理器
+    -   只要实现HandlerExceptionResolver接口计算全局异常处理器
+    -->
+    <bean class="com.zking.bookstore.exception.CustomExceptionResolver"/>
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置上传文件的最大尺寸为5MB-->
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
+
+    <!-- 单独处理图片、样式、js等资源 -->
+    <mvc:resources location="/resources/" mapping="/resources/**"/>
+
+    <mvc:view-controller path="/" view-name="index"/>
+</beans>

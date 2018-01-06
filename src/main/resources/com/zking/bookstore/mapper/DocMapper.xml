@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.DocMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.bookstore.model.Doc" >
+    <constructor >
+      <idArg column="docId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docBook" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docMan" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="docIsDel" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zking.bookstore.model.Doc" >
+    <constructor >
+      <idArg column="docId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="docBook" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docMan" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="docDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="docIsDel" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="docPath" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    docId, docName, docType, docBook, docMan, docDate, docIsDel
+  </sql>
+  <sql id="Blob_Column_List" >
+    docPath
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_doc
+    where docId = #{docid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_doc
+    where docId = #{docid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.bookstore.model.Doc" >
+    insert into t_doc (docId, docName, docType,
+      docBook, docMan, docPath)
+    values (#{docid,jdbcType=VARCHAR}, #{docname,jdbcType=VARCHAR}, #{doctype,jdbcType=VARCHAR},
+      #{docbook,jdbcType=INTEGER}, #{docman,jdbcType=INTEGER}, #{docpath,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.bookstore.model.Doc" >
+    insert into t_doc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="docid != null" >
+        docId,
+      </if>
+      <if test="docname != null" >
+        docName,
+      </if>
+      <if test="doctype != null" >
+        docType,
+      </if>
+      <if test="docbook != null" >
+        docBook,
+      </if>
+      <if test="docman != null" >
+        docMan,
+      </if>
+      <if test="docdate != null" >
+        docDate,
+      </if>
+      <if test="docisdel != null" >
+        docIsDel,
+      </if>
+      <if test="docpath != null" >
+        docPath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="docid != null" >
+        #{docid,jdbcType=VARCHAR},
+      </if>
+      <if test="docname != null" >
+        #{docname,jdbcType=VARCHAR},
+      </if>
+      <if test="doctype != null" >
+        #{doctype,jdbcType=VARCHAR},
+      </if>
+      <if test="docbook != null" >
+        #{docbook,jdbcType=INTEGER},
+      </if>
+      <if test="docman != null" >
+        #{docman,jdbcType=INTEGER},
+      </if>
+      <if test="docdate != null" >
+        #{docdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docisdel != null" >
+        #{docisdel,jdbcType=BIT},
+      </if>
+      <if test="docpath != null" >
+        #{docpath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.bookstore.model.Doc" >
+    update t_doc
+    <set >
+      <if test="docname != null" >
+        docName = #{docname,jdbcType=VARCHAR},
+      </if>
+      <if test="doctype != null" >
+        docType = #{doctype,jdbcType=VARCHAR},
+      </if>
+      <if test="docbook != null" >
+        docBook = #{docbook,jdbcType=INTEGER},
+      </if>
+      <if test="docman != null" >
+        docMan = #{docman,jdbcType=INTEGER},
+      </if>
+      <if test="docdate != null" >
+        docDate = #{docdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docisdel != null" >
+        docIsDel = #{docisdel,jdbcType=BIT},
+      </if>
+      <if test="docpath != null" >
+        docPath = #{docpath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where docId = #{docid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zking.bookstore.model.Doc" >
+    update t_doc
+    set docName = #{docname,jdbcType=VARCHAR},
+      docType = #{doctype,jdbcType=VARCHAR},
+      docBook = #{docbook,jdbcType=INTEGER},
+      docMan = #{docman,jdbcType=INTEGER},
+      docDate = #{docdate,jdbcType=TIMESTAMP},
+      docIsDel = #{docisdel,jdbcType=BIT},
+      docPath = #{docpath,jdbcType=LONGVARCHAR}
+    where docId = #{docid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.bookstore.model.Doc" >
+    update t_doc
+    set docName = #{docname,jdbcType=VARCHAR},
+      docType = #{doctype,jdbcType=VARCHAR},
+      docBook = #{docbook,jdbcType=INTEGER},
+      docMan = #{docman,jdbcType=INTEGER},
+      docDate = #{docdate,jdbcType=TIMESTAMP},
+      docIsDel = #{docisdel,jdbcType=BIT}
+    where docId = #{docid,jdbcType=VARCHAR}
+  </update>
+</mapper>
