@@ -89,6 +89,8 @@
         and status = #{status,jdbcType=BIGINT}
       </if>
     </where>
+
+    ORDER BY updated, created DESC
   </select>
   <select id="selectAll2" resultMap="ResultMapWithBLOBs2" parameterType="book" >
     select 

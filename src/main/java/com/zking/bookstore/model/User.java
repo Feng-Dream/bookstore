@@ -27,14 +27,17 @@ public class User implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
 
+	private Boolean admin;
+
 	private String message;
 
-	public User(Long userId, String username, String password, String salt, Date created) {
+	public User(Long userId, String username, String password, String salt, Date created,Boolean admin) {
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.salt = salt;
 		this.created = created;
+		this.admin = admin;
 	}
 
 	public User() {
@@ -79,6 +82,14 @@ public class User implements Serializable {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getMessage() {

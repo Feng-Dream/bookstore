@@ -25,11 +25,12 @@
             <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="salt" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="admin" jdbcType="BIT" javaType="java.lang.Boolean" />
         </constructor>
     </resultMap>
 
     <sql id="Base_Column_List">
-      user_id, username, password, salt, created
+      user_id, username, password, salt, created, admin
     </sql>
     <sql id="Salt_Column_List">
         salt

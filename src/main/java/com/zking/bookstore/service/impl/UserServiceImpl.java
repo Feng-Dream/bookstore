@@ -40,6 +40,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			return u;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new CustomException("登录失败", e);
 		}
 	}
