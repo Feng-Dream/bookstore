@@ -12,14 +12,20 @@
         <result column="updated" property="updated" javaType="java.util.Date"/>
     </resultMap>
     <sql id="Base_Column_List">
-    shoppingCar_id, user_id, book_id, book_name, book_price, book_num, created, updated
-  </sql>
-    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      shoppingCar_id, user_id, book_id, book_name, book_price, book_num, created, updated
+    </sql>
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
         from t_shoppingcar
         <where>
-            user_id = #{userId,jdbcType=BIGINT},
+            user_id = #{userId,jdbcType=BIGINT}
         </where>
     </select>
+    <delete id="deleteByUserId" parameterType="java.lang.Long">
+        delete from t_shoppingcar
+        <where>
+            user_id = #{userId,jdbcType=BIGINT}
+        </where>
+    </delete>
 </mapper>

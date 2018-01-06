@@ -15,41 +15,8 @@
 
     <!--con-->
     <div class="w960 mt10">
-        <div class="side left">
+        <%@ include file="../base/left.jsp" %>
 
-
-            <h3>图书分类</h3>
-
-            <ul class="classify bgf7e4e4 bdf7e4e4">
-
-                <li> <a href="#">文艺</a></li>
-
-                <li> <a href="#">小说</a></li>
-
-                <li> <a href="#">青春</a></li>
-
-                <li> <a href="#">童书</a></li>
-
-                <li> <a href="#">励志/成功</a></li>
-
-                <li> <a href="#">生活</a></li>
-
-                <li> <a href="#">人文社科</a></li>
-
-                <li> <a href="#">经管</a></li>
-
-                <li> <a href="#">科技</a></li>
-
-                <li> <a href="#">教育</a></li>
-
-                <li> <a href="#">工具书</a></li>
-
-                <li> <a href="#">期刊</a></li>
-
-                <div class="fixed"></div>
-            </ul>
-
-        </div>
         <div class="w740 right">
             <div class="order02">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -62,18 +29,20 @@
                     </tr>
 
 
+                    <c:forEach items="${shoppingCarList}" var="shoppingCar">
                     <tr>
-                        <td width="20%" class="text">冷间谍</td>
-                        <td width="20%" class="text">28.50</td>
+                        <td width="20%" class="text">${shoppingCar.bookName}</td>
+                        <td width="20%" class="text">${shoppingCar.bookPrice}</td>
                         <td width="20%" class="text">
-                            <input class="input" style="width: 50px;text-align: center;" type="text" id="" value="1">
+                            <input class="input" style="width: 50px;text-align: center;" type="text" id="bookNum" value="${shoppingCar.bookNum}">
                         </td>
-                        <td width="20%" class="text">28.50</td>
+                        <td width="20%" class="text">${shoppingCar.bookPrice * shoppingCar.bookNum}</td>
                         <td width="20%" class="text">
                             <a href="#">删除</a>
                             <a href="#">更新</a>
                         </td>
                     </tr>
+                    </c:forEach>
 
                     <tr>
                         <td width="20%" class="text">第一商会</td>
@@ -101,13 +70,13 @@
                     <tr>
                         <td width="5%" align="center" ></td>
                         <td width="30%" align="center" >
-                            <a href="#"><img src="resources/images/btn_shoppingcart.png"/></a>
+                            <a href="shoppingCar/emptiedShoppingcar"><img src="resources/images/btn_shoppingcart.png"/></a>
                         </td>
                         <td width="30%" align="center" >
-                            <a href="#"><img src="resources/images/btn_jxgm.png"/></a>
+                            <a href="book/toIndex"><img src="resources/images/btn_jxgm.png"/></a>
                         </td>
                         <td width="30%" align="center" >
-                            <a href="#"><img src="resources/images/btn_accounts.png"/></a>
+                            <a href="order/toAddOrder"><img src="resources/images/btn_accounts.png"/></a>
                         </td>
                         <td width="5%"></td>
                     </tr>

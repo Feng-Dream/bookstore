@@ -1,1 +1,1 @@
-<jsp:forward page="WEB-INF/page/index.jsp"/>
+<jsp:forward page="book/toIndex"/>

@@ -18,5 +18,12 @@ public interface ShoppingCarMapperCustom {
      * @param userId 用户编号
      * @return 购物车集合
      */
-    List<ShoppingCar> selectAll(Long userId);
+    List<ShoppingCar> selectByUserId(Long userId);
+
+    /**
+     * 清空用户的购物车
+     *
+     * @param userId 用户编号
+     */
+    void deleteByUserId(Long userId);
 }

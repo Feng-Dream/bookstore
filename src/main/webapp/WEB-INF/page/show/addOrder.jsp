@@ -15,41 +15,8 @@
 
     <!--con-->
     <div class="w960 mt10">
-        <div class="side left">
+        <%@ include file="../base/left.jsp" %>
 
-
-            <h3>图书分类</h3>
-
-            <ul class="classify bgf7e4e4 bdf7e4e4">
-
-                <li> <a href="#">文艺</a></li>
-
-                <li> <a href="#">小说</a></li>
-
-                <li> <a href="#">青春</a></li>
-
-                <li> <a href="#">童书</a></li>
-
-                <li> <a href="#">励志/成功</a></li>
-
-                <li> <a href="#">生活</a></li>
-
-                <li> <a href="#">人文社科</a></li>
-
-                <li> <a href="#">经管</a></li>
-
-                <li> <a href="#">科技</a></li>
-
-                <li> <a href="#">教育</a></li>
-
-                <li> <a href="#">工具书</a></li>
-
-                <li> <a href="#">期刊</a></li>
-
-                <div class="fixed"></div>
-            </ul>
-
-        </div>
         <div class="w740 right">
             <div class="o-mt">
                 <h2>订单新增</h2>
@@ -85,9 +52,10 @@
                         <tr class="bd2">
                             <th width="20%" align="center" class="bd2">发货方式</td>
                             <td width="80%"  align="left" class="bd1 pl9">
-                                <select name="" id="" style="width:305px;"><option value="">--请选择--</option>
-                                    <option value="1">平邮</option>
-                                    <option value="2">快递</option></select><span class="required">*</span>
+                                <select name="delivery" id="delivery" style="width:305px;"><option value="">--请选择--</option>
+                                    <c:forEach items="${deliveryList}" var="delivery">
+                                    <option value="${delivery.value}">${delivery.text}</option>
+                                    </c:forEach>
                             </td>
                         </tr>
                     </table>

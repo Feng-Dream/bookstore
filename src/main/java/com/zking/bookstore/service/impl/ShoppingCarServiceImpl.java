@@ -22,7 +22,12 @@ public class ShoppingCarServiceImpl implements IShoppingCarService {
     private ShoppingCarMapperCustom shoppingCarMapperCustom;
 
     @Override
-    public List<ShoppingCar> selectAll(Long userId) {
-        return shoppingCarMapperCustom.selectAll(userId);
+    public List<ShoppingCar> selectByUserId(Long userId) {
+        return shoppingCarMapperCustom.selectByUserId(userId);
+    }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        shoppingCarMapperCustom.deleteByUserId(userId);
     }
 }
