@@ -166,7 +166,7 @@ public class BookController {
             doc.setDocpath(docPath);//设置文件路径
             doc.setDoctype(bookPic.getContentType());//设置文件类型
             doc.setDocbook(bookId);//设置文件所属房屋信息编号
-            doc.setDocman(getCurrentYh(session).getUserId());//设置文件上传人编号
+            doc.setDocman(getCurrentUser(session).getUserId());//设置文件上传人编号
 
             docService.insert(doc);//新增文件
         }
@@ -356,7 +356,7 @@ public class BookController {
      * @param session 会话
      * @return 当前登录的用户
      */
-    private User getCurrentYh(HttpSession session) {
+    private User getCurrentUser(HttpSession session) {
         return (User) session.getAttribute("currentUser");
     }
 

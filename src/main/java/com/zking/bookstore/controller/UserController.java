@@ -101,7 +101,7 @@ public class UserController {
 			session.setAttribute("currentUser", u);
 
 			if(u.getAdmin()){
-				return "manager/console";
+				return "redirect:/input/manager/console";
 			}
 
 			return "redirect:/input/index";

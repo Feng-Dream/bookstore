@@ -27,12 +27,12 @@
     where shoppingCar_id = #{shoppingcarId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.zking.bookstore.model.ShoppingCar" >
-    insert into t_shoppingcar (shoppingCar_id, user_id, book_id, 
+    insert into t_shoppingcar (user_id, book_id,
       book_name, book_price, book_num, 
-      created, updated)
-    values (#{shoppingcarId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT}, 
-      #{bookName,jdbcType=VARCHAR}, #{bookPrice,jdbcType=REAL}, #{bookNum,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+      created)
+    values (#{userId,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT},
+      #{bookName,jdbcType=VARCHAR}, #{bookPrice,jdbcType=REAL}, 1,
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.zking.bookstore.model.ShoppingCar" >
     insert into t_shoppingcar
