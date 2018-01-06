@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * @Description 用户控制器
@@ -101,6 +99,11 @@ public class UserController {
 		try {
 			User u = userService.doLogin(user);
 			session.setAttribute("currentUser", u);
+
+			if(u.getAdmin()){
+				return "manager/console";
+			}
+
 			return "redirect:/input/index";
 		} catch (Exception e) {
 			bindingResult.rejectValue("message", "UsernameOrPasswordError", "用户名或密码错误");

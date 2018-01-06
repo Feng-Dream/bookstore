@@ -75,7 +75,7 @@ table tr span{ margin:-5px 0 0 8px;}
 .text{ text-align:center;}
 dl.findbook{border-bottom:1px dashed #A19494; padding:10px; width:718px;}
 dl.findbook dt{ width:120; margin-right:20px;}
-dl.findbook dt img{width:120; height:210px;max-height:120px; max-width:210px;}
+dl.findbook dt img{width:120; height:210px;}
 dl.findbook dd{ width:540px;}
 dl.findbook dd h4{ font-size:14px; font-weight:bold; color:#B20C0C;}
 dl.findbook dd p{width:540px; word-break:break-all; line-height:26px;}
