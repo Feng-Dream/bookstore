@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.ShoppingCarMapperCustom">
+    <resultMap id="BaseResultMap" type="com.zking.bookstore.model.ShoppingCar">
+        <id column="shoppingCar_id" property="shoppingcarId" javaType="java.lang.Long"/>
+        <result column="user_id" property="userId" javaType="java.lang.Long"/>
+        <result column="book_id" property="bookId" javaType="java.lang.Long"/>
+        <result column="book_name" property="bookName" javaType="java.lang.String"/>
+        <result column="book_price" property="bookPrice" javaType="java.lang.Float"/>
+        <result column="book_num" property="bookNum" javaType="java.lang.Integer"/>
+        <result column="created" property="created" javaType="java.util.Date"/>
+        <result column="updated" property="updated" javaType="java.util.Date"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    shoppingCar_id, user_id, book_id, book_name, book_price, book_num, created, updated
+  </sql>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_shoppingcar
+        <where>
+            user_id = #{userId,jdbcType=BIGINT},
+        </where>
+    </select>
+</mapper>

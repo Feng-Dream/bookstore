@@ -4,7 +4,7 @@
     <c:choose>
         <c:when test="${null != currentUser}">
             <p class="left">您好${currentUser.username}，欢迎来到飞凡网上书店 ！</p>
-            <p class="right"><a href="input/manager/console">后台管理</a> | <a href="input/show/shoppingCar">我的购物车</a> | <a href="input/show/console">我的订单</a> | <a href="user/doLogout">退出系统</a> | <a href="input/index">网站首页</a></p>
+            <p class="right"><c:if test="${currentUser.admin == true}"><a href="input/manager/console">后台管理</a> </c:if><c:if test="${currentUser.admin == false}"><a href="input/show/shoppingCar">我的购物车</a> | <a href="input/show/console">我的订单</a></c:if> | <a href="user/doLogout">退出系统</a> | <a href="input/index">网站首页</a></p>
         </c:when>
         <c:otherwise>
             <p class="left">您好，欢迎来到飞凡网上书店 ！</p>
