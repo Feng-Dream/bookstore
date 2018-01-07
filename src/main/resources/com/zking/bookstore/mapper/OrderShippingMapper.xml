@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zking.bookstore.model.OrderShipping" >
     <constructor >
       <idArg column="order_shipping_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="order_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="receiver_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="receiver_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="receiver_zip" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -27,10 +27,10 @@
     where order_shipping_id = #{orderShippingId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.zking.bookstore.model.OrderShipping" >
-    insert into t_order_shipping (order_shipping_id, order_id, receiver_name, 
+    insert into t_order_shipping (order_id, receiver_name,
       receiver_phone, receiver_zip, receiver_address, 
       delivery)
-    values (#{orderShippingId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR},
       #{receiverPhone,jdbcType=VARCHAR}, #{receiverZip,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, 
       #{delivery,jdbcType=BIGINT})
   </insert>

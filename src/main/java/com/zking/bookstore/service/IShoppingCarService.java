@@ -27,4 +27,33 @@ public interface IShoppingCarService {
      * @param userId 用户编号
      */
     void deleteByUserId(Long userId);
+
+    /**
+     * 添加
+     *
+     * @param shoppingCar 购物车信息
+     */
+    void insert(ShoppingCar shoppingCar);
+
+    /**
+     * 根据图书编号修改
+     *
+     * @param bookId      图书编号
+     * @param shoppingCar 购物车信息
+     */
+    void updateBookNum(Long bookId, ShoppingCar shoppingCar);
+
+    /**
+     * 根据用户编号和图书编号查询购物车
+     *
+     * @param shoppingCar 购物车(包含用户编号和图书编号)
+     */
+    ShoppingCar selectByUserIdAndBookId(ShoppingCar shoppingCar);
+
+    /**
+     * 据用户编号和图书编号删除购物车
+     *
+     * @param shoppingCar
+     */
+    void deleteByUserIdAndBookId(ShoppingCar shoppingCar);
 }

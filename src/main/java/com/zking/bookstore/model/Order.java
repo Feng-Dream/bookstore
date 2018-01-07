@@ -3,11 +3,13 @@ package com.zking.bookstore.model;
 import java.util.Date;
 
 public class Order {
-    private String orderId;
+    private Long orderId;
 
     private Long userId;
 
     private Long status;
+
+    private Float totalPrice;
 
     private Date createTime;
 
@@ -17,25 +19,35 @@ public class Order {
 
     private Date signTime;
 
-    public Order(String orderId, Long userId, Long status, Date createTime, Date updateTime, Date consignTime, Date signTime) {
+    private User user;
+    private OrderShipping orderShipping;
+
+    public Order(Long orderId, Long userId, Long status, Float totalPrice, Date createTime, Date updateTime, Date consignTime, Date signTime) {
         this.orderId = orderId;
         this.userId = userId;
         this.status = status;
+        this.totalPrice = totalPrice;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.consignTime = consignTime;
         this.signTime = signTime;
     }
 
+    public Order(Long userId, Long status, Date createTime) {
+        this.userId = userId;
+        this.status = status;
+        this.createTime = createTime;
+    }
+
     public Order() {
         super();
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -53,6 +65,14 @@ public class Order {
 
     public void setStatus(Long status) {
         this.status = status;
+    }
+
+    public Float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Date getCreateTime() {
@@ -85,5 +105,21 @@ public class Order {
 
     public void setSignTime(Date signTime) {
         this.signTime = signTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public OrderShipping getOrderShipping() {
+        return orderShipping;
+    }
+
+    public void setOrderShipping(OrderShipping orderShipping) {
+        this.orderShipping = orderShipping;
     }
 }

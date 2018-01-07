@@ -51,7 +51,7 @@
                         <p><strong>价格：</strong>￥${book.bookPrice}</p>
                         <p><strong>出版社：</strong>${book.bookPress}</p>
                         <p><strong>书籍简介：</strong>${book.bookRemark}</p>
-                        <p class="mt10"><a href="shoppingCar/addShoppingCar"><img src="resources/images/btn_shopping.png" /></a><a href="#"><img src="resources/images/btn_accounts.png" /></a> </p>
+                        <p class="mt10"><a href="shoppingCar/add2ShoppingCar/${book.bookId}"><img src="resources/images/btn_shopping.png" /></a><a href="order/toAddOrder?bookId=${book.bookId}"><img src="resources/images/btn_accounts.png" /></a> </p>
                     </dd>
                     <div class="fixed"></div>
                 </dl>

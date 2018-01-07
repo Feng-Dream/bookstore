@@ -1,5 +1,6 @@
 package com.zking.bookstore.service.impl;
 
+import com.zking.bookstore.mapper.ShoppingCarMapper;
 import com.zking.bookstore.mapper.ShoppingCarMapperCustom;
 import com.zking.bookstore.model.ShoppingCar;
 import com.zking.bookstore.service.IShoppingCarService;
@@ -20,6 +21,8 @@ public class ShoppingCarServiceImpl implements IShoppingCarService {
 
     @Autowired
     private ShoppingCarMapperCustom shoppingCarMapperCustom;
+    @Autowired
+    private ShoppingCarMapper shoppingCarMapper;
 
     @Override
     public List<ShoppingCar> selectByUserId(Long userId) {
@@ -29,5 +32,26 @@ public class ShoppingCarServiceImpl implements IShoppingCarService {
     @Override
     public void deleteByUserId(Long userId) {
         shoppingCarMapperCustom.deleteByUserId(userId);
+    }
+
+    @Override
+    public void insert(ShoppingCar shoppingCar) {
+        shoppingCarMapper.insert(shoppingCar);
+    }
+
+    @Override
+    public void updateBookNum(Long bookId, ShoppingCar shoppingCar) {
+        shoppingCar.setBookId(bookId);
+        shoppingCarMapperCustom.updateBookNum(shoppingCar);
+    }
+
+    @Override
+    public ShoppingCar selectByUserIdAndBookId(ShoppingCar shoppingCar) {
+        return shoppingCarMapperCustom.selectByUserIdAndBookId(shoppingCar);
+    }
+
+    @Override
+    public void deleteByUserIdAndBookId(ShoppingCar shoppingCar) {
+        shoppingCarMapperCustom.deleteByUserIdAndBookId(shoppingCar);
     }
 }

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zking.bookstore.model.OrderItem" >
     <constructor >
       <idArg column="order_item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="order_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="book_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="book_price" jdbcType="REAL" javaType="java.lang.Float" />
       <arg column="book_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -25,10 +25,10 @@
     where order_item_id = #{orderItemId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.zking.bookstore.model.OrderItem" >
-    insert into t_order_item (order_item_id, order_id, book_id, 
+    insert into t_order_item (order_id, book_id,
       book_price, book_num, total_fee
       )
-    values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{bookId,jdbcType=BIGINT}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{bookId,jdbcType=BIGINT},
       #{bookPrice,jdbcType=REAL}, #{bookNum,jdbcType=INTEGER}, #{totalFee,jdbcType=REAL}
       )
   </insert>

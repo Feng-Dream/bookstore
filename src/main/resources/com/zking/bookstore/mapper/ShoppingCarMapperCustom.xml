@@ -4,28 +4,74 @@
     <resultMap id="BaseResultMap" type="com.zking.bookstore.model.ShoppingCar">
         <id column="shoppingCar_id" property="shoppingcarId" javaType="java.lang.Long"/>
         <result column="user_id" property="userId" javaType="java.lang.Long"/>
-        <result column="book_id" property="bookId" javaType="java.lang.Long"/>
-        <result column="book_name" property="bookName" javaType="java.lang.String"/>
-        <result column="book_price" property="bookPrice" javaType="java.lang.Float"/>
+        <result column="sc_book_id" property="bookId" javaType="java.lang.Long"/>
         <result column="book_num" property="bookNum" javaType="java.lang.Integer"/>
-        <result column="created" property="created" javaType="java.util.Date"/>
-        <result column="updated" property="updated" javaType="java.util.Date"/>
+        <result column="sc_created" property="created" javaType="java.util.Date"/>
+        <result column="sc_updated" property="updated" javaType="java.util.Date"/>
+        <association property="book" javaType="book">
+            <id column="book_id" property="bookId" javaType="java.lang.Long"/>
+            <result column="book_name" property="bookName" javaType="java.lang.String"/>
+            <result column="book_type" property="bookType" javaType="java.lang.Long"/>
+            <result column="book_author" property="bookAuthor" javaType="java.lang.String"/>
+            <result column="book_price" property="bookPrice" javaType="java.lang.Float"/>
+            <result column="book_press" property="bookPress" javaType="java.lang.String"/>
+            <result column="status" property="status" javaType="java.lang.Long"/>
+            <result column="sales_volume" property="salesVolume" javaType="java.lang.Long"/>
+            <result column="created" property="created" javaType="java.util.Date"/>
+            <result column="updated" property="updated" javaType="java.util.Date"/>
+            <result column="book_remark" property="bookRemark" javaType="java.lang.String"/>
+        </association>
     </resultMap>
     <sql id="Base_Column_List">
-      shoppingCar_id, user_id, book_id, book_name, book_price, book_num, created, updated
+      shoppingCar_id, user_id, t_shoppingcar.book_id sc_book_id, book_num, t_shoppingcar.created sc_created, t_shoppingcar.updated sc_updated
     </sql>
+    <sql id="UserId_Column_Set">
+      user_id = #{userId,jdbcType=BIGINT}
+    </sql>
+    <sql id="BookId_Column_Set">
+      t_shoppingcar.book_id = #{bookId,jdbcType=BIGINT}
+    </sql>
+    <update id="updateBookNum" parameterType="shoppingCar">
+        update t_shoppingcar
+        <set>
+            book_num = #{bookNum,jdbcType=INTEGER}
+        </set>
+        <where>
+            <include refid="UserId_Column_Set"/>
+            and <include refid="BookId_Column_Set"/>
+        </where>
+    </update>
     <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
-        <include refid="Base_Column_List"/>
-        from t_shoppingcar
+        <include refid="Base_Column_List"/>, t_book.*
+        from t_shoppingcar INNER JOIN t_book
         <where>
-            user_id = #{userId,jdbcType=BIGINT}
+            t_shoppingcar.book_id = t_book.book_id
+            and <include refid="UserId_Column_Set"/>
+        </where>
+        ORDER BY created DESC
+    </select>
+    <select id="selectByUserIdAndBookId" resultMap="BaseResultMap" parameterType="shoppingCar">
+        select
+        <include refid="Base_Column_List"/>, t_book.*
+        from t_shoppingcar INNER JOIN t_book
+        <where>
+            t_shoppingcar.book_id = t_book.book_id
+            and <include refid="UserId_Column_Set"/>
+            and <include refid="BookId_Column_Set"/>
         </where>
     </select>
     <delete id="deleteByUserId" parameterType="java.lang.Long">
         delete from t_shoppingcar
         <where>
-            user_id = #{userId,jdbcType=BIGINT}
+            <include refid="UserId_Column_Set"/>
+        </where>
+    </delete>
+    <delete id="deleteByUserIdAndBookId" parameterType="shoppingCar">
+        delete from t_shoppingcar
+        <where>
+            <include refid="UserId_Column_Set"/>
+            and <include refid="BookId_Column_Set"/>
         </where>
     </delete>
 </mapper>

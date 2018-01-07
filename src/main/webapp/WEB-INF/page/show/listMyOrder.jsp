@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/page/base/first.jsp" %>
+<%@ include file="../base/first.jsp" %>
 </head>
 <body>
 
 <%@ include file="../base/head.jsp" %>
+
 <!--nav-->
 <div id="nav">
     <ul id="menu"></ul>
@@ -16,8 +17,12 @@
 </div>
 
 <div class="w960">
+    <div class="side left">
 
-    <%@ include file="/WEB-INF/page/base/manager.jsp" %>
+        <%@ include file="../base/myorder.jsp" %>
+
+    </div>
+
     <div class="w740 right">
         <div class="o-mt">
             <c:choose>
@@ -29,29 +34,9 @@
                 </c:when>
                 <c:when test="${status == 3 }">
                     <h2>已签收订单</h2>
-
                 </c:when>
             </c:choose>
         </div>
-        <div class="order01">
-            <form name="" method="post" action="">
-                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td width="15%" align="right">收货人电话：</td>
-                        <td width="15%">
-                            <input type="text" name="" value="" class="w110 input">
-                        </td>
-                        <td width="15%" align="right"></td>
-                        <td width="15%">
-                            <input type="image" name="imageField2" src="resources/images/btn_cx.png"/>
-                        </td>
-                        <td width="15%" align="right"></td>
-                        <td width="25%"></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-
         <div class="order02">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -113,22 +98,6 @@
                     </tr>
                 </c:forEach>
 
-                <tr>
-                    <td width="10%" class="text">2014-11-27</td>
-                    <td width="15%" class="text">张三</td>
-                    <td width="15%" class="text">13312345678</td>
-                    <td width="15%" class="text">021</td>
-                    <td width="15%" class="text">北京</td>
-                    <td width="10%" class="text">
-                        平邮
-                    </td>
-                    <td width="10%" class="text">￥53.30</td>
-                    <td width="10%" class="text">
-                        <c:if test="${status == 1 }"><a href="#">发货</a></c:if>
-                    </td>
-                </tr>
-
-
             </table>
         </div>
 
@@ -142,7 +111,7 @@
 </div>
 <!--end content-->
 
-<%@ include file="/WEB-INF/page/base/foot.jsp" %>
+<%@ include file="../base/foot.jsp" %>
 
 </body>
 </html>

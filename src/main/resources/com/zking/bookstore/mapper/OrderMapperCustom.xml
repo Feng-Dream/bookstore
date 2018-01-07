@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.bookstore.mapper.OrderMapperCustom">
+    <resultMap id="BaseResultMap" type="com.zking.bookstore.model.Order">
+        <id column="o_order_id" property="orderId" javaType="java.lang.Long"/>
+        <result column="user_id" property="userId" javaType="java.lang.Long"/>
+        <result column="status" property="status" javaType="java.lang.Long"/>
+        <result column="total_price" property="totalPrice" javaType="java.lang.Float"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <result column="consign_time" property="consignTime" javaType="java.util.Date"/>
+        <result column="sign_time" property="signTime" javaType="java.util.Date"/>
+        <association property="orderShipping" javaType="orderShipping">
+            <id column="order_shipping_id" property="orderShippingId" javaType="java.lang.Long"/>
+            <result column="order_id" property="orderId" javaType="java.lang.Long"/>
+            <result column="receiver_name" property="receiverName" javaType="java.lang.String"/>
+            <result column="receiver_phone" property="receiverPhone" javaType="java.lang.String"/>
+            <result column="receiver_zip" property="receiverZip" javaType="java.lang.String"/>
+            <result column="receiver_address" property="receiverAddress" javaType="java.lang.String"/>
+            <result column="delivery" property="delivery" javaType="java.lang.Long"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+      order_id , user_id, status, total_price, create_time, update_time, consign_time, sign_time
+    </sql>
+    <sql id="Base_Column_List2">
+      o.order_id o_order_id, o.user_id, o.status, o.total_price, o.create_time, o.update_time, o.consign_time, o.sign_time
+    </sql>
+    <update id="updateTotalPriceByPrimaryKey" parameterType="order">
+        update t_order
+        set total_price = #{totalPrice,jdbcType=FLOAT}
+        where order_id = #{orderId,jdbcType=BIGINT}
+    </update>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List2"/>, os.*
+        from t_order o INNER JOIN t_order_shipping os
+        <where>
+            o.order_id = os.order_id
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=BIGINT}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+</mapper>

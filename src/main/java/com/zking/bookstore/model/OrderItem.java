@@ -3,7 +3,7 @@ package com.zking.bookstore.model;
 public class OrderItem {
     private Long orderItemId;
 
-    private String orderId;
+    private Long orderId;
 
     private Long bookId;
 
@@ -13,7 +13,7 @@ public class OrderItem {
 
     private Float totalFee;
 
-    public OrderItem(Long orderItemId, String orderId, Long bookId, Float bookPrice, Integer bookNum, Float totalFee) {
+    public OrderItem(Long orderItemId, Long orderId, Long bookId, Float bookPrice, Integer bookNum, Float totalFee) {
         this.orderItemId = orderItemId;
         this.orderId = orderId;
         this.bookId = bookId;
@@ -34,11 +34,11 @@ public class OrderItem {
         this.orderItemId = orderItemId;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

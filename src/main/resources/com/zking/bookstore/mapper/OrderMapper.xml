@@ -3,9 +3,10 @@
 <mapper namespace="com.zking.bookstore.mapper.OrderMapper" >
   <resultMap id="BaseResultMap" type="com.zking.bookstore.model.Order" >
     <constructor >
-      <idArg column="order_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="order_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="status" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="total_price" jdbcType="FLOAT" javaType="java.lang.Float"/>
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="consign_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -13,25 +14,21 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    order_id, user_id, status, create_time, update_time, consign_time, sign_time
+    order_id, user_id, status, total_price, create_time, update_time, consign_time, sign_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.zking.bookstore.model.Order" >
-    insert into t_order (order_id, user_id, status, 
-      create_time, update_time, consign_time, 
-      sign_time)
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, 
-      #{signTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.zking.bookstore.model.Order" useGeneratedKeys="true" keyProperty="orderId">
+    insert into t_order (user_id, status, create_time)
+    values (#{userId,jdbcType=BIGINT}, 1, now())
   </insert>
   <insert id="insertSelective" parameterType="com.zking.bookstore.model.Order" >
     insert into t_order
@@ -60,7 +57,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
+        #{orderId,jdbcType=BIGINT},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
@@ -104,7 +101,7 @@
         sign_time = #{signTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zking.bookstore.model.Order" >
     update t_order
@@ -114,6 +111,6 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       consign_time = #{consignTime,jdbcType=TIMESTAMP},
       sign_time = #{signTime,jdbcType=TIMESTAMP}
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
 </mapper>

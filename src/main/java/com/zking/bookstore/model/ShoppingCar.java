@@ -9,22 +9,18 @@ public class ShoppingCar {
 
     private Long bookId;
 
-    private String bookName;
-
-    private Float bookPrice;
-
     private Integer bookNum;
 
     private Date created;
 
     private Date updated;
 
-    public ShoppingCar(Long shoppingcarId, Long userId, Long bookId, String bookName, Float bookPrice, Integer bookNum, Date created, Date updated) {
+    private Book book;
+
+    public ShoppingCar(Long shoppingcarId, Long userId, Long bookId, Integer bookNum, Date created, Date updated) {
         this.shoppingcarId = shoppingcarId;
         this.userId = userId;
         this.bookId = bookId;
-        this.bookName = bookName;
-        this.bookPrice = bookPrice;
         this.bookNum = bookNum;
         this.created = created;
         this.updated = updated;
@@ -58,22 +54,6 @@ public class ShoppingCar {
         this.bookId = bookId;
     }
 
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public Float getBookPrice() {
-        return bookPrice;
-    }
-
-    public void setBookPrice(Float bookPrice) {
-        this.bookPrice = bookPrice;
-    }
-
     public Integer getBookNum() {
         return bookNum;
     }
@@ -96,5 +76,13 @@ public class ShoppingCar {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
