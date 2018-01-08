@@ -65,6 +65,12 @@ public class BookController {
     public String toIndex(Model model) {
         init(model);
 
+        List<Book> top5NewBookList = bookService.selectTop5NewBook();
+        model.addAttribute("top5NewBookList", top5NewBookList);// 存到model中
+
+        List<Book> top5SalesVolumeList = bookService.selectTop5SalesVolume();
+        model.addAttribute("top5SalesVolumeList", top5SalesVolumeList);// 存到model中
+
         // 跳转到首页
         return "index";
     }
@@ -300,9 +306,9 @@ public class BookController {
      * @param status  图书状态
      * @return 逻辑视图名
      */
-    @RequestMapping("/selectAllBookByStatus/{status:[0-9]+}")
-    public String selectAllBookByStatus(HttpServletRequest request, Model model, Book book,
-                                        @ModelAttribute @PathVariable Long status) {
+    @RequestMapping("/toListBook/{status:[0-9]+}")
+    public String toListBook(HttpServletRequest request, Model model, Book book,
+                             @ModelAttribute @PathVariable Long status) {
         init(model);
 
         book.setStatus(status);// 设置图书状态

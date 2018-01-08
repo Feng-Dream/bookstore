@@ -29,7 +29,6 @@
                 </c:when>
                 <c:when test="${status == 3 }">
                     <h2>已签收订单</h2>
-
                 </c:when>
             </c:choose>
         </div>
@@ -101,34 +100,10 @@
                         <td width="10%" class="text">${order.orderShipping.delivery}</td>
                         <td width="10%" class="text">￥${order.totalPrice}</td>
                         <td width="10%" class="text">
-                            <c:choose>
-                                <c:when test="${status == 1 }">
-                                    <a href="#">撤单</a>
-                                </c:when>
-                                <c:when test="${status == 2 }">
-                                    <a href="#">签收</a>
-                                </c:when>
-                            </c:choose>
+                            <c:if test="${status == 1 }"><a href="order/ship/${order.orderId}">发货</a></c:if>
                         </td>
                     </tr>
                 </c:forEach>
-
-                <tr>
-                    <td width="10%" class="text">2014-11-27</td>
-                    <td width="15%" class="text">张三</td>
-                    <td width="15%" class="text">13312345678</td>
-                    <td width="15%" class="text">021</td>
-                    <td width="15%" class="text">北京</td>
-                    <td width="10%" class="text">
-                        平邮
-                    </td>
-                    <td width="10%" class="text">￥53.30</td>
-                    <td width="10%" class="text">
-                        <c:if test="${status == 1 }"><a href="#">发货</a></c:if>
-                    </td>
-                </tr>
-
-
             </table>
         </div>
 

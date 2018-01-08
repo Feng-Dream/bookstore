@@ -1,8 +1,8 @@
 package com.zking.bookstore.mapper;
 
-import java.util.List;
-
 import com.zking.bookstore.model.Book;
+
+import java.util.List;
 
 /**
  * 图书数据访问对象扩展类
@@ -13,5 +13,26 @@ import com.zking.bookstore.model.Book;
  */
 public interface BookMapperCustom {
 
-	List<Book> selectAll(Book book);
+
+    /**
+     * 查询全部图书
+     *
+     * @param book 图书信息
+     * @return 图书集合
+     */
+    List<Book> selectAll(Book book);
+
+    /**
+     * 查询新书前五的图书
+     *
+     * @return 图书集合
+     */
+    List<Book> selectTop5NewBook();
+
+    /**
+     * 查询销量前五的图书
+     *
+     * @return 图书集合
+     */
+    List<Book> selectTop5SalesVolume();
 }

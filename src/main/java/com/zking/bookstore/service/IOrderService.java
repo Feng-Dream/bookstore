@@ -31,4 +31,20 @@ public interface IOrderService {
      * @param bookId        图书编号
      */
     void insert(Order order, OrderShipping orderShipping, Long bookId);
+
+    /**
+     * 根据主键 (订单编号) 修改订单状态
+     *
+     * @param orderId 订单编号
+     * @param order   订单信息 (包含订单状态)
+     */
+    void updateStatusByPrimaryKey(Long orderId, Order order);
+
+    /**
+     * 假删
+     *
+     * @param orderId 订单编号
+     * @param order   订单信息 (包含订单状态)
+     */
+    void doFalseDel(Long orderId, Order order);
 }

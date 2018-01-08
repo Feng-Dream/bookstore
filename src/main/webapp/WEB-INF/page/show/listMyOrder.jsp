@@ -88,10 +88,10 @@
                         <td width="10%" class="text">
                             <c:choose>
                                 <c:when test="${status == 1 }">
-                                    <a href="#">撤单</a>
+                                    <a href="order/cancelOrder/${order.orderId}">撤单</a>
                                 </c:when>
                                 <c:when test="${status == 2 }">
-                                    <a href="#">签收</a>
+                                    <a href="order/sign/${order.orderId}">签收</a>
                                 </c:when>
                             </c:choose>
                         </td>

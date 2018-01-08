@@ -107,4 +107,17 @@ public class OrderServiceImpl implements IOrderService {
         //清空购物车
         shoppingCarMapperCustom.deleteByUserId(order.getUserId());
     }
+
+    @Override
+    public void updateStatusByPrimaryKey(Long orderId, Order order) {
+        //设置订单编号
+        order.setOrderId(orderId);
+
+        orderMapperCustom.updateStatusByPrimaryKey(order);
+    }
+
+    @Override
+    public void doFalseDel(Long orderId, Order order) {
+        orderMapperCustom.doFalseDel(order);
+    }
 }

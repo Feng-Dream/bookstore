@@ -96,6 +96,80 @@ public class OrderController {
     }
 
     /**
+     * 撤单
+     *
+     * @param session 会话
+     * @param orderId 订单编号
+     * @param order   订单
+     * @return 逻辑视图名
+     */
+    @RequestMapping("/cancelOrder/{orderId:[0-9]+}")
+    public String cancelOrder(HttpSession session, @ModelAttribute @PathVariable Long orderId, Order order) {
+        if (null == getCurrentUser(session)) {
+            return "redirect:/input/login";
+        }
+
+        //删除 (假删)
+        order.setDel(true);
+
+        orderService.doFalseDel(orderId, order);
+
+        //跳转到我的订单 (未发货状态)
+        return "redirect:/order/toMyOrder/1";
+    }
+
+    /**
+     * 发货
+     *
+     * @param session 会话
+     * @param orderId 订单编号
+     * @param order   订单
+     * @return 逻辑视图名
+     */
+    @RequestMapping("/ship/{orderId:[0-9]+}")
+    public String ship(HttpSession session, @ModelAttribute @PathVariable Long orderId, Order order) {
+        if (null == getCurrentUser(session)) {
+            return "redirect:/input/login";
+        }
+
+        if (!getCurrentUser(session).getAdmin()) {
+            return "redirect:/book/toIndex";
+        }
+
+        //设置为发货状态
+        order.setStatus(2L);
+
+        orderService.updateStatusByPrimaryKey(orderId, order);
+
+        //跳转到订单页面 (已发货状态)
+        return "redirect:/order/toListOrder/2";
+    }
+
+    /**
+     * 签收
+     *
+     * @param session 会话
+     * @param orderId 订单编号
+     * @param order   订单
+     * @return 逻辑视图名
+     */
+    @RequestMapping("/sign/{orderId:[0-9]+}")
+    public String sign(HttpSession session, @ModelAttribute @PathVariable Long orderId, Order order) {
+        if (null == getCurrentUser(session)) {
+            return "redirect:/input/login";
+        }
+
+        //设置为签收状态
+        order.setStatus(3L);
+
+        orderService.updateStatusByPrimaryKey(orderId, order);
+
+        //跳转到我的订单 (已签收状态)
+        return "redirect:/order/toMyOrder/3";
+    }
+
+
+    /**
      * 跳转到我的订单
      *
      * @param model   Model
@@ -137,6 +211,9 @@ public class OrderController {
     public String toListOrder(Model model, HttpServletRequest request, HttpSession session, @ModelAttribute @PathVariable Long status, Order order) {
         if (null == getCurrentUser(session)) {
             return "redirect:/input/login";
+        }
+        if (!getCurrentUser(session).getAdmin()) {
+            return "redirect:/book/toIndex";
         }
 
         //设置订单状态

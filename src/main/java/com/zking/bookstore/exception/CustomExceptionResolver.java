@@ -1,7 +1,5 @@
 package com.zking.bookstore.exception;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomExceptionResolver implements HandlerExceptionResolver {
 
-    Logger logger = LogManager.getLogger(CustomExceptionResolver.class);
-
     /**
      * @param request  请求
      * @param response 响应
@@ -24,9 +20,6 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
      */
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        logger.error(ex.getMessage());
-        ex.printStackTrace();
-
         //解析出异常类型
 
         //如果该异常类型是系统自定义的异常，直接取出异常信息，在错误页面展示

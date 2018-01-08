@@ -10,6 +10,7 @@
         <result column="update_time" property="updateTime" javaType="java.util.Date"/>
         <result column="consign_time" property="consignTime" javaType="java.util.Date"/>
         <result column="sign_time" property="signTime" javaType="java.util.Date"/>
+        <result column="is_del" property="isDel" javaType="java.lang.Boolean"/>
         <association property="orderShipping" javaType="orderShipping">
             <id column="order_shipping_id" property="orderShippingId" javaType="java.lang.Long"/>
             <result column="order_id" property="orderId" javaType="java.lang.Long"/>
@@ -21,15 +22,36 @@
         </association>
     </resultMap>
     <sql id="Base_Column_List">
-      order_id , user_id, status, total_price, create_time, update_time, consign_time, sign_time
+      order_id , user_id, status, total_price, create_time, update_time, consign_time, sign_time, is_del
     </sql>
     <sql id="Base_Column_List2">
-      o.order_id o_order_id, o.user_id, o.status, o.total_price, o.create_time, o.update_time, o.consign_time, o.sign_time
+      o.order_id o_order_id, o.user_id, o.status, o.total_price, o.create_time, o.update_time, o.consign_time, o.sign_time, o.is_del
     </sql>
     <update id="updateTotalPriceByPrimaryKey" parameterType="order">
         update t_order
         set total_price = #{totalPrice,jdbcType=FLOAT}
         where order_id = #{orderId,jdbcType=BIGINT}
+        and is_del = 0
+    </update>
+    <update id="updateStatusByPrimaryKey" parameterType="order">
+        update t_order
+        set status = #{status,jdbcType=BIGINT}
+        <choose>
+            <when test="status == 2">
+                ,consign_time = now()
+            </when>
+            <when test="status  == 3">
+                ,sign_time = now()
+            </when>
+        </choose>
+        where order_id = #{orderId,jdbcType=BIGINT}
+        and is_del = 0
+    </update>
+    <update id="doFalseDel" parameterType="order">
+        update t_order
+        set is_del = 1
+        where order_id = #{orderId,jdbcType=BIGINT}
+        and is_del = 0
     </update>
     <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -37,6 +59,7 @@
         from t_order o INNER JOIN t_order_shipping os
         <where>
             o.order_id = os.order_id
+            and is_del = 0
             <if test="userId != null">
                 and user_id = #{userId,jdbcType=BIGINT}
             </if>

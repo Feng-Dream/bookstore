@@ -19,6 +19,8 @@ public class Order {
 
     private Date signTime;
 
+    private Boolean isDel;
+
     private User user;
     private OrderShipping orderShipping;
 
@@ -121,5 +123,13 @@ public class Order {
 
     public void setOrderShipping(OrderShipping orderShipping) {
         this.orderShipping = orderShipping;
+    }
+
+    public Boolean getDel() {
+        return isDel;
+    }
+
+    public void setDel(Boolean del) {
+        isDel = del;
     }
 }
